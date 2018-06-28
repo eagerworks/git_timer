@@ -5,7 +5,7 @@ module GitTimer extend self
   require 'fileutils'
   require 'time'
 
-  MAIN_PATH = './user-log'
+  MAIN_PATH = '.git/user-log'
   PRE_PUSH_PATH = '.git/hooks/pre-push'
   POST_CHECKOUT_PATH = '.git/hooks/post-checkout'
   LOG_TITLE = "# Git log \n"
