@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'git_timer'
+
+GitTimer.main
+GitTimer::Timer.start(ARGV)
