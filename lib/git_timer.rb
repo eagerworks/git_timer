@@ -5,19 +5,20 @@ module GitTimer extend self
   require 'fileutils'
   require 'time'
 
-  MAIN_PATH = './user-log'
+  MAIN_PATH = '.git/user-log'
   PRE_PUSH_PATH = '.git/hooks/pre-push'
   POST_CHECKOUT_PATH = '.git/hooks/post-checkout'
   LOG_TITLE = "# Git log \n"
 
   def main
-    content = LOG_TITLE
-    File.open(MAIN_PATH, 'w+') do |f|
-      f.write content
+    unless File.exist?(MAIN_PATH)
+      File.open(MAIN_PATH, 'w+') do |f|
+        f.write LOG_TITLE
+      end
+      File.chmod(0777, MAIN_PATH)
     end
-    File.chmod(0777, MAIN_PATH)
-    initialize_git_hook(POST_CHECKOUT_PATH, 'post_checkout')
-    initialize_git_hook(PRE_PUSH_PATH, 'pre_push')
+    initialize_git_hook(POST_CHECKOUT_PATH, 'post_checkout') unless File.exist?(POST_CHECKOUT_PATH)
+    initialize_git_hook(PRE_PUSH_PATH, 'pre_push') unless File.exist?(PRE_PUSH_PATH)
   end
 
   def initialize_git_hook(hook_path, hook_method)
