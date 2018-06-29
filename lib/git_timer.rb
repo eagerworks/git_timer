@@ -81,7 +81,7 @@ module GitTimer extend self
   def failed_push?(ticket_id)
     last_entry = `tail -n 1 #{MAIN_PATH}`
     return false if last_entry == LOG_TITLE
-    last_entry = last_entry.match(/^(\w*) \| (\w* \w*) \| (.*)/).captures
+    last_entry = last_entry.match(/^(\w*) \| (\w*[ ]?\w*) \| (.*)/).captures
     time_diff = (Time.now - Time.parse(last_entry[2])) / 60
     last_entry[0] == ticket_id && last_entry[1] == 'Code review' && time_diff < 11
   end
